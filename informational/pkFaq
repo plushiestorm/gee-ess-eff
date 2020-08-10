@@ -1,0 +1,11 @@
+{{$embed := cembed 
+    "title" "**PK FAQ**" 
+    "description" "Below are some Frequently asked questions." 
+	"url" "https://pluralkit.me/"
+    "color" 4645612 
+	"fields" (cslice 
+			(sdict "name" "__Why are so many bots chatting?__" "value" "Some accounts may post messages with the `BOT` tag. PluralKit is a Discord bot that uses webhooks to create pseudo-users so that different members of systems can differentiate themselves easier. The only Discord bots we have on our server are those in the bottom section on the sidebar below the <@&721644911874539583> hoisted role. Please do not insinuate (or make jokes about) that those using PluralKit are any less sentient. Please run `pk;help` in <#721618686376411187> for more information." "inline" false)
+(sdict "name" "What are the pk reacts again?" "value" ":bell: will ping the account with a link back to the message.\n:question: will get you a dm from <@!466378653216014359> with info about the user and the message.\n:x: will let the account holder delete a pk message the account sent." "inline" false)
+(sdict "name" "How do I check an accounts pk card?" "value" "Copy the accounts ID and send a dm with ``pk;s ID`` to <@!466378653216014359> or by reacting with :question: to the pk message." "inline" false))
+}}
+{{sendMessage nil $embed}}
