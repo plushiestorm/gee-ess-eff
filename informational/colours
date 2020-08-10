@@ -1,0 +1,2 @@
+ {{ $embed := cembed "image" (sdict "url" "https://cdn.discordapp.com/attachments/721919110367281163/722181594252705822/unknown.png")  }}
+{{ sendMessage nil $embed }}
