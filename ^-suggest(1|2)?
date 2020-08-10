@@ -1,0 +1,47 @@
+{{ $currentChannel := .Message.ChannelID }}
+{{ if not (in (cslice 721592515110764566 721919110367281163 724041800666447912 721921947252031530 721618686376411187) $currentChannel) }}
+	The -suggest command doesn't work in this channel. Please use it in <#721592515110764566>, <#721919110367281163>, <#724041800666447912>, <#721921947252031530>, or <#721618686376411187>.
+{{else}}
+	{{ $channel := 725620531252166676}} {{/* Replace this with your suggestion channel ID */}}
+	{{$server_disco_1 := 721592515110764566}}
+	{{$server_disco_2 := 721919110367281163}}
+
+	{{$rand_int:= randInt 100}}
+	{{$server_disco_rand := $server_disco_1}}	
+
+	{{if lt $rand_int 50}}
+		{{$server_disco_rand := $server_disco_2}}
+	{{end}}
+
+	{{ $server_discos := sdict "suggest" $server_disco_rand }}
+	{{ $server_discos.Set "suggest1" $server_disco_1}}
+	{{ $server_discos.Set "suggest2" $server_disco_2}}
+
+	{{$msg :=  (reReplace "-" .Message.Content "")}}
+	{{$msg := index (split  $msg " ") 0}} {{/* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA GHHDJHGKJGJHJKBDF*/}}
+
+	{{$response_channel := $server_discos.Get $msg}}
+
+	{{if gt (len .Args) 1}}
+		Suggestion submitted. Please direct discussion to <#{{$response_channel }}>.
+		{{ $embed := cembed
+			"description" (joinStr " " .CmdArgs)
+			"color" 9021952
+			"author" (sdict "name" (joinStr "" .User.Username "#" .User.Discriminator) "url" "" "icon_url" (.User.AvatarURL "512"))
+			"timestamp"  currentTime
+		}}
+		{{ $id := (sendMessageNoEscapeRetID $channel $embed) }}
+		{{ addMessageReactions $channel $id "upvote:524907425531428864" "abstain:741364644727488682" "downvote:524907425032175638" }}
+
+		{{ $combine := (print "there is a new suggestion; [click here to see it](https://discordapp.com/channels/" .Guild.ID "/" $channel "/" $id ")") }}
+			
+		{{ $server_disco_embed:= cembed "title" "New suggestion" "description" $combine }}
+		{{sendMessageNoEscape $response_channel "<@&734384965201952860> "}}
+		{{sendMessageNoEscape $response_channel $server_disco_embed}}
+
+	{{else}}
+		Correct usage: `-suggest <suggestion>`
+	{{end}}
+{{end}}
+{{/*deleteResponse 5*/}}
+{{/*deleteTrigger 5*/}}
