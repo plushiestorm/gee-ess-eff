@@ -1,0 +1,30 @@
+{{$topicArchiveChannel := 738801161540206603}}
+{{$topicEmbed := cembed }}
+{{$topic := ""}}
+{{if gt (len .Args) 1}}
+{{$topic := (joinStr " " .CmdArgs)}}
+{{if eq (index .Args 1) "-a"}}
+{{$topic = (index (split $topic "-a ") 1)}}
+{{$topicEmbed = cembed 
+    "title" (joinStr "" "New topic is: " $topic ", please remember to stay on topic for the duration of the conversation.") 
+    "description" ("Any user feel free to start the discussion on the chosen topic.") 
+    "color" 4645612 
+}}
+{{else}}
+{{$topicEmbed = cembed 
+    "title" (joinStr "" "New topic is: " $topic ", please remember to stay on topic for the duration of the conversation.") 
+    "description" ( "The user who set the topic has requested first speaking rights, please wait until that user has started the discussion before engaging.") 
+    "color" 4645612 
+    "footer" (sdict "text" (toString .User.ID))
+}}
+{{end}}
+{{editChannelName nil (joinStr "" "ot_" $topic)}}
+{{$mID := sendMessageRetID nil ($topicEmbed) }}
+ 
+{{ $combine := (print "the topic has been changed to \"" $topic "\". [click here to go to where this topic starts](https://discordapp.com/channels/" .Guild.ID "/" .Channel.ID "/" $mID ")") }}
+{{ $topic_archive_embed:= cembed "title" "New topic" "description" $combine }}
+{{sendMessageNoEscape $topicArchiveChannel  $topic_archive_embed}}
+ 
+{{else}}
+Syntax is ``-ot TOPIC`` to set the topic and retain priority first speaker or ``-ot -a TOPIC`` for anonymous topic submission.
+{{end}}
