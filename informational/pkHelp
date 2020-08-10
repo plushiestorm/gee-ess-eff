@@ -1,0 +1,9 @@
+{{$embed := cembed 
+    "title" "**Useful PK Commands**" 
+    "description" "Here's some commonly used pk features." 
+	"url" "https://pluralkit.me/commands"
+    "color" 4645612 
+	"fields" (cslice 
+			(sdict "name" "__Informational__" "value" "React with :x: on a proxied message to delete it (only if you sent it!)\nReact with :question: on a proxied message to look up information about it\nReact with :bell: on a proxied message to ping the sender" "inline" false))
+}}
+{{sendMessage nil $embed}}
