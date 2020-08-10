@@ -1,0 +1,15 @@
+{{$embed := cembed 
+    "title" "**New PK Profile**" 
+    "description" "This is how to create a new PK profile" 
+	"url" "https://pluralkit.me/commands"
+    "color" 4645612 
+	"fields" (cslice 
+			(sdict "name" "__Step 1__:" "value" "``pk;s new SYSNAME``" "inline" false)
+			(sdict "name" "__Step 2__:" "value" "``pk;m new MEMBERNAME``" "inline" false)
+		 	(sdict "name" "__Step 3__:" "value" "``pk;m MEMBERNAME proxy add TAG``" "inline" false)
+			(sdict "name" "__Step 4(optional)__:" "value" "``pk;m MEMBERNAME pronouns PRONOUNS``" "inline" false)
+			(sdict "name" "__Step 5(optional)__:" "value" "``pk;m MEMBERNAME description DESC``" "inline" false)
+			(sdict "name" "__Step 6(optional)__:" "value" "``pk;m MEMBERNAME avatar PFPURL``" "inline" false)
+			(sdict "name" "__Step 7(optional)__:" "value" "``pk;s description SYSDESC``" "inline" false))
+}}
+{{sendMessage nil $embed}}
