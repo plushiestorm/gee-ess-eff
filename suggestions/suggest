@@ -17,6 +17,10 @@
 	{{ $server_discos.Set "suggest1" $server_disco_1}}
 	{{ $server_discos.Set "suggest2" $server_disco_2}}
 
+	{{ $server_discos.Set "suggestion" $server_disco_rand }}
+	{{ $server_discos.Set "suggestion1" $server_disco_1}}
+	{{ $server_discos.Set "suggestion2" $server_disco_2}}
+
 	{{$msg :=  (reReplace "-" .Message.Content "")}}
 	{{$msg := index (split  $msg " ") 0}} {{/* AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA GHHDJHGKJGJHJKBDF*/}}
 
@@ -40,7 +44,7 @@
 		{{sendMessageNoEscape $response_channel $server_disco_embed}}
 
 	{{else}}
-		Correct usage: `-suggest <suggestion>`
+		Correct usage: `-suggest <suggestion>`. You can also use `-suggest1` and `-suggest2` to direct discussion to different server discussion channels.
 	{{end}}
 {{end}}
 {{/*deleteResponse 5*/}}
